@@ -3,6 +3,7 @@ Diffusion model based impedance controller for bimanual manipulation.
 Integrates diffusion-based sZFT reconstruction with adaptive impedance control.
 """
 
+import torch
 import numpy as np
 from typing import Tuple, Optional, List
 from collections import deque
@@ -307,7 +308,3 @@ class BimanualDiffusionController:
     def _invert_quat(self, q: np.ndarray) -> np.ndarray:
         """Quaternion inversion."""
         return np.array([q[0], -q[1], -q[2], -q[3]])
-
-
-# Make sure we import torch
-import torch

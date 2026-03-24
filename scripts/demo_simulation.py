@@ -8,6 +8,9 @@ to test the controller logic before full integration.
 import sys
 import os
 import numpy as np
+# Use non-interactive backend for matplotlib
+import matplotlib
+matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 from matplotlib.animation import FuncAnimation
 from typing import List, Dict
@@ -119,9 +122,10 @@ def main():
         "reproduction", "full_paper_results", "best_model.pth"
     )
 
-    has_diffusion = os.path.exists(model_path)
-    print(f"\nDiffusion model available: {has_diffusion}")
-    if has_diffusion:
+    # Temporarily disable diffusion for demo (simpler to run)
+    has_diffusion = False  # Set to True when ready for full diffusion
+    print(f"\nDiffusion model available: {os.path.exists(model_path)}")
+    if has_diffusion and os.path.exists(model_path):
         print(f"Model path: {model_path}")
         controller = BimanualDiffusionController(model_path=model_path)
     else:
@@ -263,7 +267,7 @@ def plot_results(history: Dict, has_diffusion: bool):
     plt.savefig(output_path, dpi=150)
     print(f"\nPlot saved to: {output_path}")
 
-    plt.show()
+    plt.close()
 
 
 if __name__ == "__main__":
